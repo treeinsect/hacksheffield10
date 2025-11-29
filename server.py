@@ -1,14 +1,12 @@
-from flask import Flask, make_response, request, redirect, render_template, send_from_directory
-from random import choices as rand_choices
-from string import ascii_letters
-from sqlite3 import connect
-from json import load as json_load
-from os import path
+from flask import Flask, send_file
 
 app = Flask(__name__)
 
-app.post("/")
-def passImageToPrinter():
-    pass
+
+#endpoint should be / image name
+@app.get("/<image_name>.jpg")
+def passImageToPrinter(image_name):
+    return send_file("{image}.jpg".format(image=image_name),"image/jpeg")
+    
 
 app.run(host="0.0.0.0")
