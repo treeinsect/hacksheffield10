@@ -1,7 +1,7 @@
 import requests
 import os
 
-url = "https://example.com/image.jpg"
+url = "http://example.com/image.jpg"
 
 fileName = 0
 
