@@ -1,6 +1,4 @@
-from flask import Flask, make_response, request, redirect, render_template, send_from_directory,send_file
-from random import choices as rand_choices
-from json import load as json_load
+from flask import Flask, send_file
 
 app = Flask(__name__)
 
