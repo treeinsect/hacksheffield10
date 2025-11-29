@@ -1,7 +1,7 @@
 import requests
 import os
 
-url = "http://192.168.43.11:5000/image.jpg"
+url = "http://192.168.43.11:5000/"
 
 resp = requests.get(url)
 resp.raise_for_status()
