@@ -19,20 +19,31 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     IEnumerator Upload(string url, string path)
     {
+
+        if (!File.Exists(path))
+        {
+            UnityEngine.Debug.LogError("File not found at: " + path);
+            yield break;
+        }
+
+        byte[] imageBytes = File.ReadAllBytes(path);
+
         WWWForm form = new WWWForm();
-        form.AddField("filepath", path);
+        form.AddBinaryData("image", imageBytes, "image.jpg", "image/jpeg");
+
+        print("upload");
 
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
-            yield return www.Send();
+            yield return www.SendWebRequest();
 
-            if (www.isError)
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                print(www.error);
             }
             else
             {
-                Debug.Log("Form upload complete!");
+                print("Form upload complete!");
             }
         }
     }
@@ -53,12 +64,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var url = "192.168.0.1";
-        var filePath = "Assets/Photos/image";
+        var url = "http://192.168.43.62:5000/";
+        var filePath = "Assets/Photos/image.jpg";
         if (Input.GetKeyDown(KeyCode.Z)) {
             SaveTextureToFileUtility.SaveRenderTextureToFile(mySpecialTexture, filePath);
             UnityEditor.AssetDatabase.Refresh();
-            Upload(url, filePath);
+            StartCoroutine(Upload(url, filePath));
         }
 
     }
