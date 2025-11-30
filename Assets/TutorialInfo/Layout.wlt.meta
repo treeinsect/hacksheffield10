@@ -6,3 +6,10 @@ DefaultImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 143848
+  packageName: '3D Stealth Game: Haunted House'
+  packageVersion: 3.1
+  assetPath: Assets/TutorialInfo/Layout.wlt
+  uploadId: 770342
