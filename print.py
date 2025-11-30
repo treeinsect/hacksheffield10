@@ -12,3 +12,8 @@ def print_image(image_name: str):
 
     os.system("lp image.jpg")
 
+def send_image_name(image_name:str):
+    requests.post("http://localhost:5000/post", data={"imageName": image_name})
+
+if __name__ == "__main__":
+    send_image_name("bernd.jpg")
