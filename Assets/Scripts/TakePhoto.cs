@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using System.Net;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Diagnostics;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
@@ -12,6 +15,26 @@ public class NewMonoBehaviourScript : MonoBehaviour
     void Start()
     {
        
+    }
+
+    IEnumerator Upload(string url, string path)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("filepath", path);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.Send();
+
+            if (www.isError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+            }
+        }
     }
 
     public void sendPOST(string url, string json)
@@ -32,11 +55,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         var url = "192.168.0.1";
         var filePath = "Assets/Photos/image";
-        var msgJson = "{'filepath': " + filePath + "}";
         if (Input.GetKeyDown(KeyCode.Z)) {
             SaveTextureToFileUtility.SaveRenderTextureToFile(mySpecialTexture, filePath);
             UnityEditor.AssetDatabase.Refresh();
-            sendPOST(url, msgJson);
+            Upload(url, filePath);
         }
 
     }
