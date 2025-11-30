@@ -32,7 +32,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         var url = "192.168.0.1";
         var filePath = "Assets/Photos/image";
-        var msgJson = "{'message': " + filePath + "}";
+        var msgJson = "{'filepath': " + filePath + "}";
         if (Input.GetKeyDown(KeyCode.Z)) {
             SaveTextureToFileUtility.SaveRenderTextureToFile(mySpecialTexture, filePath);
             UnityEditor.AssetDatabase.Refresh();
